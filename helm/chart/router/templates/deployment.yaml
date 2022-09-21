@@ -112,8 +112,8 @@ spec:
               readOnly: true
             {{- if index .Values.router.configuration "rhai" }}
             - name: router-rhai
-              mountPath: {{ .Values.router.configuration.rhai.scripts | default "/dist/rhai" }}/{{ .Values.router.configuration.rhai.main | default "main.rhai" }}
-              subPath: {{ .Values.router.configuration.rhai.main | default "main.rhai" }}
+              mountPath: "/dist/rhai/main.rhai"
+              subPath: main.rhai
               readOnly: true
             {{- end }}
             {{- end }}
@@ -127,7 +127,7 @@ spec:
         - name: router-configuration
           configMap:
             name: {{ include "router.fullname" . }}
-        {{- if index .Values.router.configuration "rhai" }}
+        {{- if or (.Values.rhai.scriptFile) (.Values.rhai.existingConfigMap)}}
         - name: router-rhai
           configMap:
             name: {{ include "router.rhaiConfigMapName" . }}

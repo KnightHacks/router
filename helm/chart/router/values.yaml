@@ -15,7 +15,9 @@ router:
 # -- If using rhai, specify the location of your input file
 rhai:
   # -- input rhai file, contents will be stored in a ConfigMap
-  input_file: ""
+  scriptFile: |-
+
+  existingConfigMap: ""
 
 managedFederation:
   # -- If using managed federation, the graph API key to identify router to Studio

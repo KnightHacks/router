@@ -27,8 +27,12 @@ If release name contains chart name it will be used as a full name.
 Create a name for our rhai config map.
 */}}
 {{- define "router.rhaiConfigMapName" -}}
-{{- printf "%s-rhai" (include "router.fullname" .) }}
-{{- end }}
+{{- if .Values.rhai.existingConfigMap -}}
+    {{- printf "%s" (tpl .Values.rhai.existingConfigMap $) -}}
+{{- else -}}
+    {{- printf "%s-rhai" (include "router.name" .) -}}
+{{- end -}}
+{{- end -}}
 
 {{/*
 Create chart name and version as used by the chart label.
